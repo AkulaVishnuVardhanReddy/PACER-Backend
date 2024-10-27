@@ -1,5 +1,10 @@
 package com.Backend.PACER.services.interfaces;
 
-public interface LoginHistoryService {
+import java.util.List;
 
+import com.Backend.PACER.entities.LoginHistory;
+
+public interface LoginHistoryService {
+	List<LoginHistory> getLoginHistoryByUserId(Long userId);
+	LoginHistory createLoginHistory(LoginHistory loginHistroy);
 }

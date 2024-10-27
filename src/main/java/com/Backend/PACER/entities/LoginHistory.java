@@ -1,6 +1,6 @@
 package com.Backend.PACER.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,8 +20,8 @@ public class LoginHistory {
 	@JoinColumn(name="user_id",nullable = false)
 	private User user;
 	
-	private LocalDate loginTime;
-	private LocalDate logoutTime;
+	private LocalDateTime loginTime;
+	private LocalDateTime logoutTime;
 	
 	
 //	Empty Constructor
@@ -31,7 +31,7 @@ public class LoginHistory {
 	
 	
 //	Constructor
-	public LoginHistory(long id, User user, LocalDate loginTime, LocalDate logoutTime) {
+	public LoginHistory(long id, User user, LocalDateTime loginTime, LocalDateTime logoutTime) {
 		super();
 		this.id = id;
 		this.user = user;
@@ -61,22 +61,22 @@ public class LoginHistory {
 	}
 
 
-	public LocalDate getLoginTime() {
+	public LocalDateTime getLoginTime() {
 		return loginTime;
 	}
 
 
-	public void setLoginTime(LocalDate loginTime) {
+	public void setLoginTime(LocalDateTime loginTime) {
 		this.loginTime = loginTime;
 	}
 
 
-	public LocalDate getLogoutTime() {
+	public LocalDateTime getLogoutTime() {
 		return logoutTime;
 	}
 
 
-	public void setLogoutTime(LocalDate logoutTime) {
+	public void setLogoutTime(LocalDateTime logoutTime) {
 		this.logoutTime = logoutTime;
 	}
 
