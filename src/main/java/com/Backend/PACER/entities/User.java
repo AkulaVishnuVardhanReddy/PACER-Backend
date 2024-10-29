@@ -4,9 +4,12 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,7 +27,9 @@ public class User {
 	private long phoneNo;
 	private byte[] photo;
 	
-	private String role;
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="role_id")
+	private Role role;
 	private String username;
 	private String password;
 	private String questionAns1;
@@ -38,7 +43,7 @@ public class User {
 	
 //	Constructor
 	public User(Long id, String firstName, String lastName, LocalDate dob, String emailId, long phoneNo, byte[] photo,
-			String role, String username, String password, String questionAns1, String questionAns2) {
+			Role role, String username, String password, String questionAns1, String questionAns2) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -99,10 +104,10 @@ public class User {
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 	public String getUsername() {
@@ -135,7 +140,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dob=" + dob + ", emailId="
-				+ emailId + ", phoneNo=" + phoneNo + ", photo=" + Arrays.toString(photo) + ", role=" + role
+				+ emailId + ", phoneNo=" + phoneNo + ", photo=" + Arrays.toString(photo) + ", role=" + role.getName()
 				+ ", username=" + username + ", password=" + password + ", questionAns1=" + questionAns1
 				+ ", questionAns2=" + questionAns2 + "]";
 	}	

@@ -15,6 +15,7 @@ import com.Backend.PACER.entities.CourtCase;
 import com.Backend.PACER.services.interfaces.CourtCaseService;
 
 @RestController
+
 public class CourtCaseController {
 	
 	private CourtCaseService courtCaseService;
@@ -22,6 +23,16 @@ public class CourtCaseController {
 	public CourtCaseController(CourtCaseService courtCaseService) {
 		this.courtCaseService = courtCaseService;
 	}
+	
+	@GetMapping("/lawyer/name")
+	public ResponseEntity<String> getLawyer(){
+		return ResponseEntity.ok("this lawyer");
+	}
+	
+//	@PostMapping("/basicauth")
+//	public ResponseEntisty<String> LoginComponent(){
+//		
+//	}
 	
 	@GetMapping("/court-cases")
 	public List<CourtCase> getAllCourtCases(){

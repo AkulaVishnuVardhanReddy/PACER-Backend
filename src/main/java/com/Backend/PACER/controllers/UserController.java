@@ -7,18 +7,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Backend.PACER.entities.User;
 import com.Backend.PACER.services.interfaces.UserService;
 
 @RestController
+@RequestMapping("/registrar")
 public class UserController {
 
 	private final UserService userService;
 
 	public UserController(UserService userService) {
 		this.userService = userService;
+	}
+	
+	@GetMapping("/name")
+	public ResponseEntity<String> getUser(){
+		return ResponseEntity.ok("This is controller regisrter ");
 	}
 	
 	@PutMapping("/users/{id}")
