@@ -22,9 +22,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf().disable()
                 .authorizeHttpRequests(authorize->authorize
-                        .requestMatchers("/judge/**").hasRole("MANAGER")
-                        .requestMatchers("/lawyer/**").hasRole("CLERK")
-                        .requestMatchers("/registrar/**").hasRole("EMPLOYEE")
+                        .requestMatchers("/judge/**").hasRole("JUDGE")
+                        .requestMatchers("/lawyer/**").hasRole("LAWYER")
+                        .requestMatchers("/registrar/**").hasRole("REGISTRAR")
                         .requestMatchers("/auth/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form->form
