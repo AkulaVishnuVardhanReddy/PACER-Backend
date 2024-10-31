@@ -1,4 +1,4 @@
-package com.Backend.PACER.controllers.configurations;
+package com.Backend.PACER.configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

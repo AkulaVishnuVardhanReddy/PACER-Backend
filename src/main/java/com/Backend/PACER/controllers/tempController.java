@@ -1,5 +1,6 @@
 package com.Backend.PACER.controllers;
 
+import com.Backend.PACER.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,13 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Backend.PACER.entities.User;
 import com.Backend.PACER.repositories.UserRepository;
-import com.Backend.PACER.services.interfaces.UserService;
+import com.Backend.PACER.services.UserService;
 
 import java.util.Optional;
 
-@RestController
+//@RestController
 public class tempController {
 	
 	@Autowired
@@ -29,15 +29,13 @@ public class tempController {
 	
 	@PostMapping("/auth/save")
 	public ResponseEntity<String> saveUser(@RequestBody User user){
-//		userService.createUser(user);
 		Optional<User> isUser = userRepository.findByUsername(user.getUsername());
 		if (isUser.isPresent()) {
 			return new ResponseEntity<>("User Already exit", HttpStatus.ALREADY_REPORTED);
 		}
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		userRepository.save(user);
+		userService.createUser(user);
 		return ResponseEntity.ok("Saved successfully");
-		
 	}
 
 	@GetMapping("/auth/get")

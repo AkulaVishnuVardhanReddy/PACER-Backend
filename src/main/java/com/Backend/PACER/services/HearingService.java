@@ -2,28 +2,23 @@ package com.Backend.PACER.services;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
-import com.Backend.PACER.entities.CourtCase;
 import com.Backend.PACER.entities.Hearing;
 import com.Backend.PACER.repositories.HearingRepository;
-import com.Backend.PACER.services.interfaces.HearingService;
+import org.springframework.stereotype.Service;
 
 @Service
-public class HearingServiceImpl implements HearingService{
+public class HearingService{
 
-	private HearingRepository hearingRepository;
+	private final HearingRepository hearingRepository;
 
-	public HearingServiceImpl(HearingRepository hearingRepository) {
+	public HearingService(HearingRepository hearingRepository) {
 		this.hearingRepository = hearingRepository;
 	}
-	
-	@Override
+
 	public List<Hearing> hearingListOfCase(Long courtCaseCin){
 		return hearingRepository.findByCourtCase_Cin(courtCaseCin);
 	}
-	
-	@Override
+
 	public Hearing addHearing(Hearing hearing) {
 		return hearingRepository.save(hearing);
 	}

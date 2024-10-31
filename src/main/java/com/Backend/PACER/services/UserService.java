@@ -1,31 +1,27 @@
 package com.Backend.PACER.services;
 
-import java.util.Optional;
-
+import com.Backend.PACER.entities.User;
+import com.Backend.PACER.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.Backend.PACER.entities.User;
-import com.Backend.PACER.repositories.UserRepository;
-import com.Backend.PACER.services.interfaces.UserService;
+import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService{
-	
+public class UserService{
+
 	private final UserRepository userRepository;
 
 	@Autowired
-	public UserServiceImpl(UserRepository userRepository) {
+	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
-	
-	@Override
+
 	public User getUserById(Long id) {
 		Optional<User> optionalUser = userRepository.findById(id);
 		return optionalUser.orElse(null);
 	}
-	
-	@Override
+
 	public User updateUser(Long id , User user) {
 		if(userRepository.existsById(id)) {
 			user.setId(id);
@@ -33,14 +29,17 @@ public class UserServiceImpl implements UserService{
 		}
 		return null;
 	}
-	
-	@Override
+
 	public User createUser(User user) {
 		return userRepository.save(user);
 	}
-	
-	@Override
+
 	public void deleteUser(Long id) {
 		userRepository.deleteById(id);
 	}
+
+	public Optional<User> findByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
 }
+

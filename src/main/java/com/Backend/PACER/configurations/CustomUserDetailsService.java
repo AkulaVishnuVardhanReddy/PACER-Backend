@@ -1,8 +1,9 @@
-package com.Backend.PACER.controllers.configurations;
+package com.Backend.PACER.configurations;
 
 import java.util.Collection;
 import java.util.Collections;
 
+import com.Backend.PACER.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,11 +21,11 @@ import com.Backend.PACER.repositories.UserRepository;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepo;
+    private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user=userRepo.findByUsername(username)
+        User user=userService.findByUsername(username)
                 .orElseThrow(()->new UsernameNotFoundException("User Not Found with username "+username));
 
         return new org.springframework.security.core.userdetails.User(

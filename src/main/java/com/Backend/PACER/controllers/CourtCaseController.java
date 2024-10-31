@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Backend.PACER.entities.CourtCase;
-import com.Backend.PACER.services.interfaces.CourtCaseService;
+import com.Backend.PACER.services.CourtCaseService;
 
 @RestController
 
@@ -28,11 +28,7 @@ public class CourtCaseController {
 	public ResponseEntity<String> getLawyer(){
 		return ResponseEntity.ok("this lawyer");
 	}
-	
-//	@PostMapping("/basicauth")
-//	public ResponseEntisty<String> LoginComponent(){
-//		
-//	}
+
 	
 	@GetMapping("/court-cases")
 	public List<CourtCase> getAllCourtCases(){
