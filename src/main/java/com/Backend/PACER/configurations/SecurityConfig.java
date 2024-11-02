@@ -17,25 +17,29 @@ public class SecurityConfig {
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
-
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        http.csrf().disable()
-                .authorizeHttpRequests(authorize->authorize
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .cors() // Enable CORS with your custom configuration
+                .and()
+                .csrf().disable()
+                .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/judge/**").hasRole("JUDGE")
                         .requestMatchers("/lawyer/**").hasRole("LAWYER")
                         .requestMatchers("/registrar/**").hasRole("REGISTRAR")
                         .requestMatchers("/auth/**").permitAll()
-                        .anyRequest().authenticated())
-                .formLogin(form->form
+                        .anyRequest().authenticated()
+                )
+                .formLogin(form -> form
                         .loginProcessingUrl("/login")
-                        .permitAll());
+                        .permitAll()
+                );
 
         return http.build();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http)throws Exception{
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(customUserDetailsService)
                 .passwordEncoder(passwordEncoder())
@@ -43,7 +47,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
+
