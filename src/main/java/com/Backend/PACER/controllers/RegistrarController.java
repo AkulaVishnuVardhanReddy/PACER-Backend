@@ -1,10 +1,8 @@
 package com.Backend.PACER.controllers;
 
-import com.Backend.PACER.entities.CaseAccessHistory;
-import com.Backend.PACER.entities.Hearing;
-import com.Backend.PACER.entities.LoginHistory;
-import com.Backend.PACER.entities.User;
+import com.Backend.PACER.entities.*;
 import com.Backend.PACER.services.CaseAccessHistoryService;
+import com.Backend.PACER.services.CourtCaseService;
 import com.Backend.PACER.services.HearingService;
 import com.Backend.PACER.services.LoginHistoryService;
 import com.Backend.PACER.services.UserService;
@@ -35,6 +33,9 @@ public class RegistrarController {
 
     @Autowired
     private HearingService hearingService;
+
+    @Autowired
+    private CourtCaseService courtCaseService;
 
 //    User Controllers
 
@@ -104,6 +105,16 @@ public class RegistrarController {
     @GetMapping("/cases/hearing/{cin}")
     public List<Hearing> getByCin(@PathVariable Long cin){
         return hearingService.hearingListOfCase(cin);
+    }
+
+
+    @GetMapping("/court-cases/status/{status}")
+    public List<CourtCase> listPendingCases(@PathVariable String status) {
+        if (status.equalsIgnoreCase("pending"))
+            return courtCaseService.listPendingCases(status);
+        if (status.equalsIgnoreCase("resolved"))
+            return courtCaseService.listResolvedCases(status);
+        return null;
     }
 
 }

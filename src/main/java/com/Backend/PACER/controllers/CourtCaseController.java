@@ -35,6 +35,7 @@ public class CourtCaseController {
 		return courtCaseService.getAllCourtCases();
 	}
 	
+
 	@PostMapping("/court-cases")
 	public CourtCase createCourtCase(@RequestBody CourtCase courtCase) {
 		return courtCaseService.createCourtCase(courtCase);
@@ -73,15 +74,6 @@ public class CourtCaseController {
 	@GetMapping("/court-cases/crime-type/{type}")
 	public List<CourtCase> getByCrimeType(@PathVariable String type){
 		return courtCaseService.getByCrimeType(type);
-	}
-	
-	@GetMapping("/court-cases/status/{status}")
-	public List<CourtCase> listPendingCases(@PathVariable String status){
-		if(status.equalsIgnoreCase("pending"))
-			return courtCaseService.listPendingCases(status);
-		if(status.equalsIgnoreCase("resolved"))
-			return courtCaseService.listResolvedCases(status);
-		return null;
 	}
 	
 	@GetMapping("/court-cases/crime-date/{datestr}")
