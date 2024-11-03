@@ -35,12 +35,6 @@ public class CourtCaseController {
 		return courtCaseService.getAllCourtCases();
 	}
 	
-
-	@PostMapping("/court-cases")
-	public CourtCase createCourtCase(@RequestBody CourtCase courtCase) {
-		return courtCaseService.createCourtCase(courtCase);
-	}
-	
 	@GetMapping("/court-cases/lawyer/{name}")
 	public List<CourtCase> getByLawyerName(@PathVariable String name){
 		return courtCaseService.getByLawyerName(name);

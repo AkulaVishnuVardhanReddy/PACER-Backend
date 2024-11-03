@@ -100,7 +100,7 @@ public class RegistrarController {
     @PostMapping("/cases/hearing")
     public Hearing addHearing(@RequestBody Hearing hearing) {
     return hearingService.addHearing(hearing);
-}
+    }
 
     @GetMapping("/cases/hearing/{cin}")
     public List<Hearing> getByCin(@PathVariable Long cin){
@@ -115,6 +115,11 @@ public class RegistrarController {
         if (status.equalsIgnoreCase("resolved"))
             return courtCaseService.listResolvedCases(status);
         return null;
+    }
+
+    @PostMapping("/court-cases")
+    public CourtCase createCourtCase(@RequestBody CourtCase courtCase) {
+        return courtCaseService.createCourtCase(courtCase);
     }
 
 }
