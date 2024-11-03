@@ -72,15 +72,21 @@ public class RegistrarController {
 
 
 //    Login History Details
-    @PostMapping("/loginHistory")
+@PostMapping("/login-history")
     public LoginHistory createLoginHistory(@RequestBody LoginHistory loginHistory) {
         return loginHistoryService.createLoginHistory(loginHistory);
     }
 
-    @GetMapping("/loginHistory/{userId}")
+    @GetMapping("/login-history/{userId}")
     public List<LoginHistory> getLoginHistory(@PathVariable Long userId){
         return loginHistoryService.getLoginHistoryByUserId(userId);
     }
+
+//    @DeleteMapping("/login-history/{userId}")
+//    public ResponseEntity<String> deleteLoginHistoryByUserId(@PathVariable long userId) {
+//        loginHistoryService.deleteLoginHistoryByUserId(userId);
+//        return ResponseEntity.ok("Login history records for user with ID " + userId + " have been deleted.");
+//    }
 
 
 
@@ -94,6 +100,12 @@ public class RegistrarController {
     public CaseAccessHistory createHistory(@RequestBody CaseAccessHistory history) {
         return caseAccessHistoryService.createCaseAccessHistory(history);
     }
+
+//    @DeleteMapping("/case-history/{userId}")
+//    public ResponseEntity<String> deleteCaseAccessHistoryByUserId(@PathVariable long userId) {
+//        caseAccessHistoryService.deleteCaseAccessHistoryByUserId(userId);
+//        return ResponseEntity.ok("Case access history records for user with ID " + userId + " have been deleted.");
+//    }
 
 
 //    Hearing Details

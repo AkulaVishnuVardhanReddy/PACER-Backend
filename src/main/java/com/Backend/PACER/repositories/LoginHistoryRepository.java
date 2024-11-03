@@ -8,4 +8,5 @@ import com.Backend.PACER.entities.LoginHistory;
 
 public interface LoginHistoryRepository extends JpaRepository<LoginHistory, Long>{
 	List<LoginHistory> findByUserId(Long userId);
+	void deleteByUserId(Long userId);
 }

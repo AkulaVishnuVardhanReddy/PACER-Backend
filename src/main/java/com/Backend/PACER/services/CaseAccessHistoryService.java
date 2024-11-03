@@ -22,4 +22,8 @@ public class CaseAccessHistoryService {
 	public CaseAccessHistory createCaseAccessHistory(CaseAccessHistory history) {
 		return caseAccessHistoryRepository.save(history);
 	}
+
+	public void deleteCaseAccessHistoryByUserId(long userId) {
+		caseAccessHistoryRepository.deleteByUserId(userId);
+	}
 }
