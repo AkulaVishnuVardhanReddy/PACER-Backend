@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface CaseAccessHistoryRepository extends JpaRepository<CaseAccessHistory,Long> {
-	List<CaseAccessHistory> findByUserId(Long id);
+	List<CaseAccessHistory> findByCourtCaseCin(Long cin);
 
 	@Transactional
 	@Modifying

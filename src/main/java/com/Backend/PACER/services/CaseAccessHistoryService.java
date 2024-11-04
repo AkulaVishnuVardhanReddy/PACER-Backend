@@ -16,7 +16,7 @@ public class CaseAccessHistoryService {
 	}
 
 	public List<CaseAccessHistory> getByCaseId(Long caseId){
-		return caseAccessHistoryRepository.findByUserId(caseId);
+		return caseAccessHistoryRepository.findByCourtCaseCin(caseId);
 	}
 
 	public CaseAccessHistory createCaseAccessHistory(CaseAccessHistory history) {

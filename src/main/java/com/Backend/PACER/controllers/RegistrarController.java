@@ -72,10 +72,7 @@ public class RegistrarController {
 
 
 //    Login History Details
-@PostMapping("/login-history")
-    public LoginHistory createLoginHistory(@RequestBody LoginHistory loginHistory) {
-        return loginHistoryService.createLoginHistory(loginHistory);
-    }
+
 
     @GetMapping("/login-history/{userId}")
     public List<LoginHistory> getLoginHistory(@PathVariable Long userId){
@@ -91,14 +88,9 @@ public class RegistrarController {
 
 
 //    Case Access History details
-    @GetMapping("/case-history/{userId}")
-    public List<CaseAccessHistory> getCaseAccessHistory(@PathVariable Long userId){
-        return caseAccessHistoryService.getByCaseId(userId);
-    }
-
-    @PostMapping("/case-history")
-    public CaseAccessHistory createHistory(@RequestBody CaseAccessHistory history) {
-        return caseAccessHistoryService.createCaseAccessHistory(history);
+@GetMapping("/case-history/{cin}")
+public List<CaseAccessHistory> getCaseAccessHistory(@PathVariable Long cin) {
+    return caseAccessHistoryService.getByCaseId(cin);
     }
 
 //    @DeleteMapping("/case-history/{userId}")
