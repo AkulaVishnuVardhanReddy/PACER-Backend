@@ -3,12 +3,11 @@ package com.Backend.PACER.controllers;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Backend.PACER.entities.CourtCase;
@@ -59,7 +58,14 @@ public class CourtCaseController {
 	public List<CourtCase> getByPublicProsecutorName(@PathVariable String name){
 		return courtCaseService.getByPublicProsecutorName(name);
 	}
-	
+
+	@GetMapping("/court-cases/{id}")
+	public ResponseEntity<CourtCase> getByCaseId(@PathVariable Long id) {
+		Optional<CourtCase> details = courtCaseService.getByCaseId(id);
+        return details.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+
 	@GetMapping("/court-cases/arresting-officer/{name}")
 	public List<CourtCase> getByArrestingOfficerName(@PathVariable String name){
 		return courtCaseService.getByArrestingOfficerName(name);
@@ -84,5 +90,6 @@ public class CourtCaseController {
 	        return ResponseEntity.badRequest().body(null); 
 	    }
 	}
+
 
 }

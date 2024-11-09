@@ -33,6 +33,10 @@ public class CourtCaseService{
 		return courtCaseRepository.findByDefendentName(defendentName);
 	}
 
+	public Optional<CourtCase> getByCaseId(Long id){
+		return courtCaseRepository.findById(id);
+	}
+
 	public List<CourtCase> getByCourtName(String courtName){
 		return courtCaseRepository.findByCourtName(courtName);
 	}

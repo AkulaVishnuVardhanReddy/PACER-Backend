@@ -106,10 +106,7 @@ public List<CaseAccessHistory> getCaseAccessHistory(@PathVariable Long cin) {
     return hearingService.addHearing(hearing);
     }
 
-    @GetMapping("/cases/hearing/{cin}")
-    public List<Hearing> getByCin(@PathVariable Long cin){
-        return hearingService.hearingListOfCase(cin);
-    }
+
 
 
     @GetMapping("/court-cases/status/{status}")
