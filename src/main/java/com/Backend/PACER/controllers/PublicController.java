@@ -64,4 +64,9 @@ public class PublicController {
         return hearingService.hearingListOfCase(cin);
     }
 
+    @GetMapping("/hearing/{keyword}")
+    public List<Hearing> getByKeyword(@PathVariable String keyword) {
+        return hearingService.findByKeyword(keyword);
+    }
+
 }

@@ -22,4 +22,8 @@ public class HearingService{
 	public Hearing addHearing(Hearing hearing) {
 		return hearingRepository.save(hearing);
 	}
+
+	public List<Hearing> findByKeyword(String keyword){
+		return hearingRepository.findByProcedingSummaryContainingKeyword(keyword);
+	}
 }

@@ -15,8 +15,8 @@ public class LoginHistoryService{
 		this.loginHistoryRepository = loginHistoryRepository;
 	}
 
-	public void deleteLoginHistoryByUserId(long userId) {
-		loginHistoryRepository.deleteByUserId(userId);
+	public void deleteLoginHistoryByUserId(Long userId) {
+		loginHistoryRepository.deleteByUser_Id(userId);
 	}
 
 	public List<LoginHistory> getLoginHistoryByUserId(Long userId){

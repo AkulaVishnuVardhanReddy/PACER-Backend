@@ -70,15 +70,9 @@ public class CourtCaseService{
 		return courtCaseRepository.findAll();
 	}
 
-	public CourtCase updateStatus(Long cin ,String status) {
-		Optional<CourtCase> courtCaseOptional = courtCaseRepository.findById(cin);
-		if(courtCaseOptional.isPresent()) {
-			CourtCase courtCase = courtCaseOptional.get();
-			courtCase.setStatus(status);
-			return courtCaseRepository.save(courtCase);
-		}
-		else {
-			throw new IllegalArgumentException("CourtCase with CIN "+cin+" not found");
-		}
+
+	public CourtCase updateCourtCase(Long cin, CourtCase courtCaseDetails) {
+		courtCaseDetails.setCin(cin); // Ensure the cin is set for the update
+		return courtCaseRepository.save(courtCaseDetails); // Save or update the entity
 	}
 }

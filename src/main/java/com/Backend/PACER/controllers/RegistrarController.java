@@ -40,10 +40,10 @@ public class RegistrarController {
 //    User Controllers
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user){
-        User modifiedUser = userService.updateUser(id, user);
-        return modifiedUser !=null ?ResponseEntity.ok(modifiedUser) :
-                ResponseEntity.notFound().build();
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+        userDetails.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+        User updatedUser = userService.updateUser(id, userDetails);
+        return updatedUser != null ? ResponseEntity.ok(updatedUser) : ResponseEntity.notFound().build();
     }
 
     @PostMapping("/users")
@@ -64,12 +64,6 @@ public class RegistrarController {
                 ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id){
-        userService.deleteUser(id);
-        return ResponseEntity.noContent().build();
-    }
-
 
 //    Login History Details
 
@@ -79,25 +73,14 @@ public class RegistrarController {
         return loginHistoryService.getLoginHistoryByUserId(userId);
     }
 
-//    @DeleteMapping("/login-history/{userId}")
-//    public ResponseEntity<String> deleteLoginHistoryByUserId(@PathVariable long userId) {
-//        loginHistoryService.deleteLoginHistoryByUserId(userId);
-//        return ResponseEntity.ok("Login history records for user with ID " + userId + " have been deleted.");
-//    }
 
 
-
-//    Case Access History details
-@GetMapping("/case-history/{cin}")
-public List<CaseAccessHistory> getCaseAccessHistory(@PathVariable Long cin) {
-    return caseAccessHistoryService.getByCaseId(cin);
+    //    Case Access History details
+    @GetMapping("/case-history/{cin}")
+    public List<CaseAccessHistory> getCaseAccessHistory(@PathVariable Long cin) {
+        return caseAccessHistoryService.getByCaseId(cin);
     }
 
-//    @DeleteMapping("/case-history/{userId}")
-//    public ResponseEntity<String> deleteCaseAccessHistoryByUserId(@PathVariable long userId) {
-//        caseAccessHistoryService.deleteCaseAccessHistoryByUserId(userId);
-//        return ResponseEntity.ok("Case access history records for user with ID " + userId + " have been deleted.");
-//    }
 
 
 //    Hearing Details
@@ -121,6 +104,14 @@ public List<CaseAccessHistory> getCaseAccessHistory(@PathVariable Long cin) {
     @PostMapping("/court-cases")
     public CourtCase createCourtCase(@RequestBody CourtCase courtCase) {
         return courtCaseService.createCourtCase(courtCase);
+    }
+
+
+    @PutMapping("/court-cases/{cin}")
+    public ResponseEntity<CourtCase> updateCourtCase(@PathVariable Long cin, @RequestBody CourtCase courtCaseDetails) {
+        courtCaseDetails.setCin(cin); // Ensure the cin is set from the path
+        CourtCase updatedCourtCase = courtCaseService.updateCourtCase(cin, courtCaseDetails);
+        return ResponseEntity.ok(updatedCourtCase); // Return the updated entity
     }
 
 }
