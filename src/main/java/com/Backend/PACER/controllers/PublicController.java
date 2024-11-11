@@ -10,6 +10,7 @@ import com.Backend.PACER.services.LoginHistoryService;
 import com.Backend.PACER.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class PublicController {
 
     @Autowired
@@ -67,6 +69,26 @@ public class PublicController {
     @GetMapping("/hearing/{keyword}")
     public List<Hearing> getByKeyword(@PathVariable String keyword) {
         return hearingService.findByKeyword(keyword);
+    }
+
+    @GetMapping("/users/photo/{username}")
+    public ResponseEntity<byte[]> getImageByUsername(@PathVariable String username) {
+        Optional<User> userOptional = userService.findByUsername(username);
+
+        if (userOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // User not found
+        }
+
+        User user = userOptional.get();
+        byte[] photo = user.getPhoto();
+
+        if (photo == null || user.getImageType() == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Photo not found
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.valueOf(user.getImageType()))
+                .body(photo);
     }
 
 }

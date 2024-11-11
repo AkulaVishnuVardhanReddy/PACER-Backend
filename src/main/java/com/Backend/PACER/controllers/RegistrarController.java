@@ -8,15 +8,18 @@ import com.Backend.PACER.services.LoginHistoryService;
 import com.Backend.PACER.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/registrar")
+@CrossOrigin(origins = "http://localhost:3000") // Add this if frontend is on a different port
 public class RegistrarController {
 
     @Autowired
@@ -46,16 +49,29 @@ public class RegistrarController {
         return updatedUser != null ? ResponseEntity.ok(updatedUser) : ResponseEntity.notFound().build();
     }
 
+//    @PostMapping("/users")
+//    public ResponseEntity<String> createUser(@RequestBody User user){
+//		Optional<User> isUser = userService.findByUsername(user.getUsername());
+//		if (isUser.isPresent()) {
+//			return new ResponseEntity<>("User Already exit", HttpStatus.ALREADY_REPORTED);
+//		}
+//		user.setPassword(passwordEncoder.encode(user.getPassword()));
+//		userService.createUser(user);
+//		return ResponseEntity.ok("Saved successfully");
+//    }
+//
+
     @PostMapping("/users")
-    public ResponseEntity<String> createUser(@RequestBody User user){
-		Optional<User> isUser = userService.findByUsername(user.getUsername());
-		if (isUser.isPresent()) {
-			return new ResponseEntity<>("User Already exit", HttpStatus.ALREADY_REPORTED);
-		}
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		userService.createUser(user);
-		return ResponseEntity.ok("Saved successfully");
+    public ResponseEntity<?> addUser(@RequestPart("user") User user, @RequestPart("imageFile") MultipartFile imageFile) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        try {
+            User createdUser = userService.createUser(user, imageFile);
+            return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
 
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id){

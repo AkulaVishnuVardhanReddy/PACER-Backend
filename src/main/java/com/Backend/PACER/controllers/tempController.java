@@ -26,17 +26,7 @@ public class tempController {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
-	@PostMapping("/auth/save")
-	public ResponseEntity<String> saveUser(@RequestBody User user){
-		Optional<User> isUser = userRepository.findByUsername(user.getUsername());
-		if (isUser.isPresent()) {
-			return new ResponseEntity<>("User Already exit", HttpStatus.ALREADY_REPORTED);
-		}
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		userService.createUser(user);
-		return ResponseEntity.ok("Saved successfully");
-	}
+
 
 	@GetMapping("/auth/get")
 	public ResponseEntity<String> getAll() {

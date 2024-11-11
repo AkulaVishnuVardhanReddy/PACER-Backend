@@ -4,7 +4,9 @@ import com.Backend.PACER.entities.User;
 import com.Backend.PACER.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @Service
@@ -22,7 +24,14 @@ public class UserService{
 		return optionalUser.orElse(null);
 	}
 
-	public User createUser(User user) {
+//	public User createUser(User user) {
+//		return userRepository.save(user);
+//	}
+
+	public User createUser(User user, MultipartFile imageFile) throws IOException {
+		user.setImageName(imageFile.getName());
+		user.setImageType(imageFile.getContentType());
+		user.setPhoto(imageFile.getBytes());
 		return userRepository.save(user);
 	}
 
